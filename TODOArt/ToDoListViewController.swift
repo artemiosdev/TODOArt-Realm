@@ -75,5 +75,20 @@ class ToDoListViewController: UITableViewController {
     
 }
 
+extension ToDoListViewController {
+    
+    private func setupNavigationBar() {
+        let coloredAppearance = UINavigationBarAppearance()
+        coloredAppearance.configureWithOpaqueBackground()
+        coloredAppearance.backgroundColor = .systemBlue
+        coloredAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+        coloredAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+        navigationController?.navigationBar.standardAppearance = coloredAppearance
+        navigationController?.navigationBar.scrollEdgeAppearance = coloredAppearance
+
+        navigationController?.navigationBar.tintColor = UIColor.white
+    }
+}
+
 
 
