@@ -16,21 +16,7 @@ class ToDoListViewController: UITableViewController {
         
         print(dataFilePath)
         
-        let newItem = Item()
-        newItem.title = "Example 1"
-        itemArray.append(newItem)
-        
-        let newItem2 = Item()
-        newItem2.title = "Example 2"
-        itemArray.append(newItem2)
-        
-        let newItem3 = Item()
-        newItem3.title = "Example 3"
-        itemArray.append(newItem3)
-        
-//        if let item = defaults.array(forKey: "TodoListArray") as? [Item] {
-//            itemArray = item
-//        }
+        loadItems()
         
     }
     
@@ -95,7 +81,21 @@ class ToDoListViewController: UITableViewController {
         
         self.tableView.reloadData()
     }
-
+    
+    func loadItems() {
+        if let data = try? Data(contentsOf: dataFilePath!) {
+            let decoder = PropertyListDecoder()
+            do {
+                itemArray = try decoder.decode([Item].self, from: data)
+            } catch {
+                print("Error encoding item array, \(error)")
+            }
+            
+        }
+    }
+    
+    
+    
 }
 
 //MARK: - Сode layout
@@ -113,6 +113,3 @@ extension ToDoListViewController {
         navigationController?.navigationBar.tintColor = UIColor.white
     }
 }
-
-
-
