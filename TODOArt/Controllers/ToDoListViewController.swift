@@ -42,8 +42,14 @@ class ToDoListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(itemArray[indexPath.row])
         
-        itemArray[indexPath.row].setValue("Completed", forKey: "title")
-        itemArray[indexPath.row].done = !itemArray[indexPath.row].done
+// update itemArray CoreDate in persistend Container (CRUD)
+//        itemArray[indexPath.row].setValue("Completed", forKey: "title")
+        
+// delete itemArray CoreDate in persistend Container (CRUD)
+        itemArray.remove(at: indexPath.row)
+        context.delete(itemArray[indexPath.row])
+        
+//        itemArray[indexPath.row].done = !itemArray[indexPath.row].done
         saveItems()
         tableView.deselectRow(at: indexPath, animated: true)
     }
