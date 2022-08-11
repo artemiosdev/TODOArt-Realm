@@ -16,9 +16,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="Gi3-U6-Wzl">
+                            <rect key="frame" x="0.0" y="0.0" width="390" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="WhB-Av-exD" id="14a-mE-lF7"/>
+                            </connections>
+                        </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ToDoItemCell" id="Byt-h3-axl">
-                                <rect key="frame" x="0.0" y="44.666666030883789" width="390" height="43.666667938232422"/>
+                                <rect key="frame" x="0.0" y="88.666666030883789" width="390" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Byt-h3-axl" id="rZ4-Fc-Xdg">
                                     <rect key="frame" x="0.0" y="0.0" width="390" height="43.666667938232422"/>
