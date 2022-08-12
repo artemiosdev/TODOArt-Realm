@@ -11,8 +11,7 @@ import CoreData
 class ToDoListViewController: UITableViewController {
     var itemArray = [Item]()
 //    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        
-//        .first?.appendingPathComponent("Item.plist")
+
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
@@ -46,10 +45,10 @@ class ToDoListViewController: UITableViewController {
 //        itemArray[indexPath.row].setValue("Completed", forKey: "title")
         
 // delete itemArray CoreDate in persistend Container (CRUD)
-        itemArray.remove(at: indexPath.row)
-        context.delete(itemArray[indexPath.row])
+//        itemArray.remove(at: indexPath.row)
+//        context.delete(itemArray[indexPath.row])
         
-//        itemArray[indexPath.row].done = !itemArray[indexPath.row].done
+        itemArray[indexPath.row].done = !itemArray[indexPath.row].done
         saveItems()
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -82,29 +81,21 @@ class ToDoListViewController: UITableViewController {
   
     //MARK: - Model Manupulation Methods
     func saveItems() {
-//       удаляем так как не изпользуем уже Encoder
-//        let encoder = PropertyListEncoder()
         do {
            try context.save()
-//       удаляем так как не изпользуем уже Encoder
-//            let data = try encoder.encode(itemArray)
-//            try data.write(to: dataFilePath!)
         } catch {
             print("Error saving context, \(error)")
-//       удаляем так как не изпользуем уже Encoder
-//            print("Error encoding item array, \(error)")
         }
-        
         self.tableView.reloadData()
     }
     
-    func loadItems() {
-        let request: NSFetchRequest<Item> = Item.fetchRequest()
+    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest()) {
         do {
           itemArray = try context.fetch(request)
         } catch {
             print("Error fetching data from context \(error)")
         }
+        tableView.reloadData()
     }
     
     
@@ -115,7 +106,10 @@ class ToDoListViewController: UITableViewController {
 extension ToDoListViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         let request: NSFetchRequest<Item> = Item.fetchRequest()
-        let predicate = NSPredicate(format: "title CONTAINS %@", searchBar.text!)
+        request.predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
+        
+        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+        loadItems(with: request)
     }
 }
 
