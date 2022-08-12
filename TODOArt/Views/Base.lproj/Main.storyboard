@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Category View Controller-->
+        <!--TODOArt-->
         <scene sceneID="NMi-MO-Cuk">
             <objects>
                 <tableViewController id="Unl-Ew-KhK" customClass="CategoryViewController" customModule="TODOArt" customModuleProvider="target" sceneMemberID="viewController">
@@ -31,7 +31,14 @@
                             <outlet property="delegate" destination="Unl-Ew-KhK" id="JSc-c8-jXB"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="REv-jX-AQB"/>
+                    <navigationItem key="navigationItem" title="TODOArt" id="REv-jX-AQB">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="xc5-iV-M5O">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="addButtonPressed:" destination="Unl-Ew-KhK" id="jFw-zD-9Nj"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="WhB-Av-exD" kind="show" identifier="goToItems" id="NDc-Kr-qGD"/>
                     </connections>
@@ -40,7 +47,7 @@
             </objects>
             <point key="canvasLocation" x="1652" y="24"/>
         </scene>
-        <!--TODOArt-->
+        <!--Items-->
         <scene sceneID="ttH-K8-hAS">
             <objects>
                 <tableViewController id="WhB-Av-exD" customClass="ToDoListViewController" customModule="TODOArt" customModuleProvider="target" sceneMemberID="viewController">
@@ -71,7 +78,7 @@
                             <outlet property="delegate" destination="WhB-Av-exD" id="eV1-LL-Qg0"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="TODOArt" id="ag2-UU-kWg">
+                    <navigationItem key="navigationItem" title="Items" id="ag2-UU-kWg">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="lZT-Gc-hPB">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
