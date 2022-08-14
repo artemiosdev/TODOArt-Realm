@@ -38,7 +38,6 @@ class CategoryViewController: UITableViewController, NSFetchRequestResult {
     // MARK: - TableView Delegate Methods
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "goToItems", sender: self)
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -91,9 +90,6 @@ class CategoryViewController: UITableViewController, NSFetchRequestResult {
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
     }
-
-    
-
 
 
 }
