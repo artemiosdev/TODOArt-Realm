@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		496293536A0C7DAF84AF7552 /* Pods_TODOArt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 432CBE53FF8281702CA55422 /* Pods_TODOArt.framework */; };
 		DD0066C528A6E7C300263AFF /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0066C428A6E7C300263AFF /* CategoryViewController.swift */; };
 		DD0A0EED28A1427000E46E3D /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DD0A0EEB28A1427000E46E3D /* DataModel.xcdatamodeld */; };
 		DD50977827C3B82A00677078 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD50977727C3B82A00677078 /* AppDelegate.swift */; };
@@ -18,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		432CBE53FF8281702CA55422 /* Pods_TODOArt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TODOArt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CFA53F402360411D50A4BAD2 /* Pods-TODOArt.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TODOArt.release.xcconfig"; path = "Target Support Files/Pods-TODOArt/Pods-TODOArt.release.xcconfig"; sourceTree = "<group>"; };
 		DD0066C428A6E7C300263AFF /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		DD0A0EEC28A1427000E46E3D /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		DD50977427C3B82A00677078 /* TODOArt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TODOArt.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -28,6 +31,7 @@
 		DD50978027C3B82B00677078 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DD50978327C3B82B00677078 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DD50978527C3B82B00677078 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F02C0657BE2D131D87EFA98D /* Pods-TODOArt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TODOArt.debug.xcconfig"; path = "Target Support Files/Pods-TODOArt/Pods-TODOArt.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,17 +39,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				496293536A0C7DAF84AF7552 /* Pods_TODOArt.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1DAE1DE14CB6AABC43A032FB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				432CBE53FF8281702CA55422 /* Pods_TODOArt.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D7B324A5268926D568FC5DB9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F02C0657BE2D131D87EFA98D /* Pods-TODOArt.debug.xcconfig */,
+				CFA53F402360411D50A4BAD2 /* Pods-TODOArt.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		DD50976B27C3B82A00677078 = {
 			isa = PBXGroup;
 			children = (
 				DD50977627C3B82A00677078 /* TODOArt */,
 				DD50977527C3B82A00677078 /* Products */,
+				D7B324A5268926D568FC5DB9 /* Pods */,
+				1DAE1DE14CB6AABC43A032FB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -112,9 +137,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DD50978827C3B82B00677078 /* Build configuration list for PBXNativeTarget "TODOArt" */;
 			buildPhases = (
+				4E3B5B939C73ED30CAF682C1 /* [CP] Check Pods Manifest.lock */,
 				DD50977027C3B82A00677078 /* Sources */,
 				DD50977127C3B82A00677078 /* Frameworks */,
 				DD50977227C3B82A00677078 /* Resources */,
+				4606C6E5012A78664F59CA09 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -169,6 +196,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4606C6E5012A78664F59CA09 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TODOArt/Pods-TODOArt-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TODOArt/Pods-TODOArt-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TODOArt/Pods-TODOArt-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4E3B5B939C73ED30CAF682C1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TODOArt-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		DD50977027C3B82A00677078 /* Sources */ = {
@@ -323,12 +392,14 @@
 		};
 		DD50978927C3B82B00677078 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F02C0657BE2D131D87EFA98D /* Pods-TODOArt.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F5T2KNU2K8;
 				INFOPLIST_FILE = TODOArt/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -342,12 +413,14 @@
 		};
 		DD50978A27C3B82B00677078 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CFA53F402360411D50A4BAD2 /* Pods-TODOArt.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F5T2KNU2K8;
 				INFOPLIST_FILE = TODOArt/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
