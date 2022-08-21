@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         // The location of the Realm file in laptop
-        print(Realm.Configuration.defaultConfiguration.fileURL)
+//        print(Realm.Configuration.defaultConfiguration.fileURL)
         
 //        let data = Data()
 //        data.name = "Artem"
@@ -24,9 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         do {
             let realm = try Realm()
-//            try realm.write {
-//                realm.add(data)
-//            }
         } catch {
             print("Error initialising new realm, \(error)")
         }
