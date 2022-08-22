@@ -20,7 +20,6 @@ class ToDoListViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        print(dataFilePath)
     }
     
     //MARK: - TableView Datasourse Methods
@@ -37,35 +36,30 @@ class ToDoListViewController: UITableViewController {
         } else {
             cell.textLabel?.text = "No Items Added"
         }
-        
-
         return cell
     }
     
     //MARK: - TableView Delegate Methods
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        исправим это в след раз
-// update itemArray CoreDate in persistend Container (CRUD)
-//        itemArray[indexPath.row].setValue("Completed", forKey: "title")
-        
-// delete itemArray CoreDate in persistend Container (CRUD)
-//        itemArray.remove(at: indexPath.row)
-//        context.delete(itemArray[indexPath.row])
-        
-//        todoItems?[indexPath.row].done = !todoItems[indexPath.row].done
-//        saveItems()
+        if let item = todoItems?[indexPath.row] {
+            do {
+                try realm.write({
+                    item.done = !item.done
+                })
+            } catch {
+                print("Error saving done status, \(error)")
+            }
+        }
+        tableView.reloadData()
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
     //MARK: - Add New Items
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-        
         var textField = UITextField()
-        
         let alert = UIAlertController(title: "Add new TODOArt Item", message: "", preferredStyle: .alert)
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
-            // what will happen once the user clicks the Add Item button on our UIAlert
-            
+
             if let currentCategory = self.selectedCategory {
                 do {
                     try self.realm.write({
@@ -94,11 +88,9 @@ class ToDoListViewController: UITableViewController {
         todoItems = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
         tableView.reloadData()
     }
-    
 }
 
 //MARK: - Search bar methods
-//
 //extension ToDoListViewController: UISearchBarDelegate {
 //    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
 //        let request: NSFetchRequest<Item> = Item.fetchRequest()

@@ -4,22 +4,17 @@
 //
 //  Created by Artem Androsenko on 12.08.2022.
 //
-
 import UIKit
 import RealmSwift
 
 class CategoryViewController: UITableViewController {
-    
     let realm = try! Realm()
-
     var categories: Results<Category>?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadCategories()
     }
     
-
     // MARK: - TableView Datasource Methods
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categories?.count ?? 1
@@ -28,7 +23,6 @@ class CategoryViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
         cell.textLabel?.text  = categories?[indexPath.row].name ?? "No Categories Added"
-        
         return cell
     }
     
@@ -39,7 +33,6 @@ class CategoryViewController: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
        let destinationVC = segue.destination as! ToDoListViewController
-        
         if let indexPath = tableView.indexPathForSelectedRow {
             destinationVC.selectedCategory = categories?[indexPath.row]
         }
@@ -68,11 +61,8 @@ class CategoryViewController: UITableViewController {
         
         let alert = UIAlertController(title: "Add new Category Item", message: "", preferredStyle: .alert)
         let action = UIAlertAction(title: "Add", style: .default) { (action) in
-            // what will happen once the user clicks the Add Item button on our UIAlert
-            
             let newCategory = Category()
             newCategory.name = textField.text!
-            
             self.save(category: newCategory)
         }
         
@@ -84,6 +74,4 @@ class CategoryViewController: UITableViewController {
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
     }
-
-
 }
