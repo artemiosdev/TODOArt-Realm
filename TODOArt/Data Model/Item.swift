@@ -8,7 +8,9 @@ import Foundation
 import RealmSwift
 
 class Item: Object {
-    @objc dynamic var title: String = ""
-    @objc dynamic var done: Bool = false
+    @Persisted var title: String = ""
+    @Persisted var done: Bool = false
+//    @Persisted(originProperty: "items") var parentCategory: LinkingObjects<Category>
+//    @Persisted(originProperty: "items") var parentCategory = LinkingObjects<Object>(fromType: Category.self, property: "items")
     var parentCategory = LinkingObjects<Object>(fromType: Category.self, property: "items")
 }
