@@ -9,5 +9,11 @@ import RealmSwift
 
 class Category: Object {
     @Persisted var name: String = ""
-    let items = List<Item>()
+    @Persisted var items: List<Item>
 }
+
+// old version code for Realm < 10.0.28 (3.0.6)
+//class Category: Object {
+//    @objc dynamic var name: String = ""
+//    let items = List<Item>()
+//}
