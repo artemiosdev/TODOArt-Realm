@@ -94,25 +94,29 @@ class ToDoListViewController: UITableViewController {
     }
 }
 
-//MARK: - Search bar methods
-//extension ToDoListViewController: UISearchBarDelegate {
-//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    //MARK: - Search bar methods
+extension ToDoListViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+//        Realm query
+        todoItems = todoItems?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "title", ascending: true)
+        
+//        CoreData query
 //        let request: NSFetchRequest<Item> = Item.fetchRequest()
 //        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
 //
 //        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
 //        loadItems(with: request, predicate: predicate)
-//    }
-//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        if searchBar.text?.count == 0 {
-//            loadItems()
-//            DispatchQueue.main.async {
-//                searchBar.resignFirstResponder()
-//            }
-//        }
-//
-//    }
-//}
+    }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count == 0 {
+            loadItems()
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+        }
+
+    }
+}
 
 //MARK: - Сode layout
 extension ToDoListViewController {
