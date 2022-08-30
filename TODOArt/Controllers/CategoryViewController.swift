@@ -17,12 +17,15 @@ class CategoryViewController: UITableViewController {
     
     // MARK: - TableView Datasource Methods
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//      if we have no categories, then we simply return one cell
         return categories?.count ?? 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
-        cell.textLabel?.text  = categories?[indexPath.row].name ?? "No Categories Added"
+//      if we didn't have any categories at all, then we simply fill that single cell
+//      with the words "No Categories Added yet," and we return the cell
+        cell.textLabel?.text  = categories?[indexPath.row].name ?? "No Categories Added Yet"
         return cell
     }
     

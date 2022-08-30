@@ -7,5 +7,6 @@ target 'TODOArt' do
   # Pods for TODOArt
 
 pod 'RealmSwift', '~>10'
+pod 'SwipeCellKit'
 
 end

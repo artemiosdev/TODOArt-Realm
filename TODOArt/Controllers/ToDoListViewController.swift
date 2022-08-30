@@ -24,6 +24,7 @@ class ToDoListViewController: UITableViewController {
     
     //MARK: - TableView Datasourse Methods
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+// But if there are no items for our current selectedCategory, then we just return one cell
         return todoItems?.count ?? 1
     }
     
@@ -34,6 +35,8 @@ class ToDoListViewController: UITableViewController {
             cell.textLabel?.text = item.title
             cell.accessoryType = item.done == true ? .checkmark : .none
         } else {
+// But if there are todoItems this is nil, then the else block, and that single cell
+// that we created up here gets populated with the text "No Items Added."
             cell.textLabel?.text = "No Items Added"
         }
         return cell
@@ -69,7 +72,10 @@ class ToDoListViewController: UITableViewController {
                     try self.realm.write({
                     let newItem = Item()
                     newItem.title = textField.text!
-                    newItem.dateCreated = Date()
+                        
+//        sorted by Data created in func searchBarSearchButtonClicked()
+//                  newItem.dateCreated = Date()
+                        
                     currentCategory.items.append(newItem)
                 })
                 } catch {
@@ -99,10 +105,12 @@ class ToDoListViewController: UITableViewController {
 extension ToDoListViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
 //        Realm query, sorted by title (alphabetically)
-//        todoItems = todoItems?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "title", ascending: true)
+//        CONTAIN this argument, and the argument is whatever the user
+//        entered into the searchBar
+        todoItems = todoItems?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "title", ascending: true)
         
 //        sorted by Data created
-        todoItems = todoItems?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "dateCreated", ascending: true)
+//        todoItems = todoItems?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "dateCreated", ascending: true)
         
         tableView.reloadData()
 //        CoreData query
