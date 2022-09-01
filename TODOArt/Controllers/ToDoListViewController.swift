@@ -7,6 +7,7 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
 class ToDoListViewController: SwipeTableViewController {
     var todoItems: Results<Item>?
@@ -21,6 +22,7 @@ class ToDoListViewController: SwipeTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = 80.0
+        tableView.separatorStyle = .none
     }
     
     //MARK: - TableView Datasourse Methods
@@ -33,6 +35,10 @@ class ToDoListViewController: SwipeTableViewController {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         if let item = todoItems?[indexPath.row] {
             cell.textLabel?.text = item.title
+            if let colour = FlatSkyBlue().darken(byPercentage: CGFloat(indexPath.row / todoItems!.count)) {
+                cell.backgroundColor = colour
+            }
+            
             cell.accessoryType = item.done == true ? .checkmark : .none
         } else {
 // But if there are todoItems this is nil, then the else block, and that single cell
