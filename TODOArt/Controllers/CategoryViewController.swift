@@ -6,6 +6,7 @@
 //
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
 class CategoryViewController: SwipeTableViewController {
     let realm = try! Realm()
@@ -14,6 +15,7 @@ class CategoryViewController: SwipeTableViewController {
         super.viewDidLoad()
         loadCategories()
         tableView.rowHeight = 80.0
+        tableView.separatorStyle = .none
     }
     
     // MARK: - TableView Datasource Methods
@@ -27,6 +29,8 @@ class CategoryViewController: SwipeTableViewController {
 //      if we didn't have any categories at all, then we simply fill that single cell
 //      with the words "No Categories Added yet," and we return the cell
         cell.textLabel?.text  = categories?[indexPath.row].name ?? "No Categories Added Yet"
+// Chameleon Color
+        cell.backgroundColor = UIColor.randomFlat()
         return cell
     }
     
