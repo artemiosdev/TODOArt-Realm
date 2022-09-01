@@ -30,7 +30,7 @@ class CategoryViewController: SwipeTableViewController {
 //      with the words "No Categories Added yet," and we return the cell
         cell.textLabel?.text  = categories?[indexPath.row].name ?? "No Categories Added Yet"
 // Chameleon Color
-        cell.backgroundColor = UIColor.randomFlat()
+        cell.backgroundColor = UIColor(hexString: categories?[indexPath.row].colour ?? "1D9BF6")
         return cell
     }
     
@@ -84,6 +84,7 @@ class CategoryViewController: SwipeTableViewController {
         let action = UIAlertAction(title: "Add", style: .default) { (action) in
             let newCategory = Category()
             newCategory.name = textField.text!
+            newCategory.colour = UIColor.randomFlat().hexValue()
             self.save(category: newCategory)
         }
         

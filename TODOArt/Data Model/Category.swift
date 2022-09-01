@@ -10,6 +10,7 @@ import RealmSwift
 class Category: Object {
     @Persisted var name: String = ""
     @Persisted var items: List<Item>
+    @Persisted var colour: String = ""
 }
 
 // old version code for Realm < 10.0.28 (3.0.6)
