@@ -12,6 +12,10 @@ import ChameleonFramework
 class ToDoListViewController: SwipeTableViewController {
     var todoItems: Results<Item>?
     let realm = try! Realm()
+    
+    
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     var selectedCategory: Category? {
         didSet {
             loadItems()
@@ -22,6 +26,23 @@ class ToDoListViewController: SwipeTableViewController {
         super.viewDidLoad()
         tableView.rowHeight = 80.0
         tableView.separatorStyle = .none
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let colourHex = selectedCategory?.colour {
+            title = selectedCategory?.name
+            guard let navBar = navigationController?.navigationBar else {
+                fatalError("Navigation controller does not exist.")
+            }
+            
+            if let navBarColour = UIColor(hexString: colourHex) {
+                navBar.backgroundColor = navBarColour
+                navBar.tintColor = ContrastColorOf(navBarColour, returnFlat: true)
+                navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: ContrastColorOf(navBarColour, returnFlat: true)]
+                searchBar.barTintColor = navBarColour
+                
+            }
+        }
     }
     
     //MARK: - TableView Datasourse Methods
@@ -152,18 +173,18 @@ extension ToDoListViewController: UISearchBarDelegate {
     }
 }
 
-//MARK: - Сode layout
-extension ToDoListViewController {
-    
-    private func setupNavigationBar() {
-        let coloredAppearance = UINavigationBarAppearance()
-        coloredAppearance.configureWithOpaqueBackground()
-        coloredAppearance.backgroundColor = .systemBlue
-        coloredAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-        coloredAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-        navigationController?.navigationBar.standardAppearance = coloredAppearance
-        navigationController?.navigationBar.scrollEdgeAppearance = coloredAppearance
-
-        navigationController?.navigationBar.tintColor = UIColor.white
-    }
-}
+////MARK: - Сode layout
+//extension ToDoListViewController {
+//
+//    private func setupNavigationBar() {
+//        let coloredAppearance = UINavigationBarAppearance()
+//        coloredAppearance.configureWithOpaqueBackground()
+//        coloredAppearance.backgroundColor = .systemBlue
+//        coloredAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+//        coloredAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+//        navigationController?.navigationBar.standardAppearance = coloredAppearance
+//        navigationController?.navigationBar.scrollEdgeAppearance = coloredAppearance
+//
+//        navigationController?.navigationBar.tintColor = UIColor.white
+//    }
+//}
