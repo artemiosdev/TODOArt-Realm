@@ -13,8 +13,3 @@ class Category: Object {
     @Persisted var colour: String = ""
 }
 
-// old version code for Realm < 10.0.28 (3.0.6)
-//class Category: Object {
-//    @objc dynamic var name: String = ""
-//    let items = List<Item>()
-//}

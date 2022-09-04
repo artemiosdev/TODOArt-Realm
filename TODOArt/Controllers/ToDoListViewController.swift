@@ -12,10 +12,7 @@ import ChameleonFramework
 class ToDoListViewController: SwipeTableViewController {
     var todoItems: Results<Item>?
     let realm = try! Realm()
-    
-    
     @IBOutlet weak var searchBar: UISearchBar!
-    
     var selectedCategory: Category? {
         didSet {
             loadItems()
@@ -24,30 +21,24 @@ class ToDoListViewController: SwipeTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.rowHeight = 80.0
         tableView.separatorStyle = .none
     }
     
     override func viewWillAppear(_ animated: Bool) {
         if let colourHex = selectedCategory?.colour {
-            title = selectedCategory?.name
-            guard let navBar = navigationController?.navigationBar else {
-                fatalError("Navigation controller does not exist.")
+            title = selectedCategory!.name
+            guard let navBar = navigationController?.navigationBar else { fatalError("Navigation controller does not exist.")
             }
-            
             if let navBarColour = UIColor(hexString: colourHex) {
                 navBar.backgroundColor = navBarColour
                 navBar.tintColor = ContrastColorOf(navBarColour, returnFlat: true)
-                navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: ContrastColorOf(navBarColour, returnFlat: true)]
                 searchBar.barTintColor = navBarColour
-                
             }
         }
     }
-    
     //MARK: - TableView Datasourse Methods
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-// But if there are no items for our current selectedCategory, then we just return one cell
+        // if there are no items for our current selectedCategory, we return one cell
         return todoItems?.count ?? 1
     }
     
@@ -55,16 +46,14 @@ class ToDoListViewController: SwipeTableViewController {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         if let item = todoItems?[indexPath.row] {
             cell.textLabel?.text = item.title
-          
+            
             if let colour = UIColor(hexString: selectedCategory!.colour)?.darken(byPercentage: CGFloat(indexPath.row) / CGFloat(todoItems!.count)) {
                 cell.backgroundColor = colour
                 cell.textLabel?.textColor = ContrastColorOf(colour, returnFlat: true)
             }
-            
-            cell.accessoryType = item.done == true ? .checkmark : .none
+            cell.accessoryType = item.done ? .checkmark : .none
         } else {
-// But if there are todoItems this is nil, then the else block, and that single cell
-// that we created up here gets populated with the text "No Items Added."
+            // if there are todoItems this is nil
             cell.textLabel?.text = "No Items Added"
         }
         return cell
@@ -74,13 +63,10 @@ class ToDoListViewController: SwipeTableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let item = todoItems?[indexPath.row] {
             do {
-                try realm.write({
-//                    delete Data from Realm
-//                    realm.delete(item)
-                    
-//                    update Data from Realm
+                try realm.write{
+                    // update Data from Realm
                     item.done = !item.done
-                })
+                }
             } catch {
                 print("Error saving done status, \(error)")
             }
@@ -94,18 +80,16 @@ class ToDoListViewController: SwipeTableViewController {
         var textField = UITextField()
         let alert = UIAlertController(title: "Add new TODOArt Item", message: "", preferredStyle: .alert)
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
-
+            
             if let currentCategory = self.selectedCategory {
                 do {
-                    try self.realm.write({
-                    let newItem = Item()
-                    newItem.title = textField.text!
-                        
-//        sorted by Data created in func searchBarSearchButtonClicked()
-//                  newItem.dateCreated = Date()
-                        
-                    currentCategory.items.append(newItem)
-                })
+                    try self.realm.write{
+                        let newItem = Item()
+                        newItem.title = textField.text!
+                        // sorted by Data created in func searchBarSearchButtonClicked()
+                        newItem.dateCreated = Date()
+                        currentCategory.items.append(newItem)
+                    }
                 } catch {
                     print("Error saving new items, \(error)")
                 }
@@ -121,7 +105,7 @@ class ToDoListViewController: SwipeTableViewController {
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
     }
-  
+    
     //MARK: - Model Manupulation Methods
     func loadItems() {
         todoItems = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
@@ -130,37 +114,29 @@ class ToDoListViewController: SwipeTableViewController {
     
     //MARK: - Delete Data From Swipe
     override func updateModel(at indexPath: IndexPath) {
-                if let todoItemsForDeleted = todoItems?[indexPath.row] {
-                    do {
-                        try realm.write({
-                            realm.delete(todoItemsForDeleted)
-                        })
-                    } catch {
-                        print("Error saving done status, \(error)")
-                    }
+        if let todoItemsForDeleted = todoItems?[indexPath.row] {
+            do {
+                try realm.write{
+                    realm.delete(todoItemsForDeleted)
                 }
+            } catch {
+                print("Error saving done status, \(error)")
+            }
+        }
     }
-
+    
 }
 
-    //MARK: - Search bar methods
+//MARK: - Search bar methods
 extension ToDoListViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-//        Realm query, sorted by title (alphabetically)
-//        CONTAIN this argument, and the argument is whatever the user
-//        entered into the searchBar
-        todoItems = todoItems?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "title", ascending: true)
+        // Realm query, sorted by title (alphabetically)
+        // CONTAIN this argument, user entered into the search Bar
+        // todoItems = todoItems?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "title", ascending: true)
         
-//        sorted by Data created
-//        todoItems = todoItems?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "dateCreated", ascending: true)
-        
+        // sorted by Data created
+        todoItems = todoItems?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "dateCreated", ascending: true)
         tableView.reloadData()
-//        CoreData query
-//        let request: NSFetchRequest<Item> = Item.fetchRequest()
-//        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
-//
-//        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
-//        loadItems(with: request, predicate: predicate)
     }
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar.text?.count == 0 {
@@ -169,22 +145,7 @@ extension ToDoListViewController: UISearchBarDelegate {
                 searchBar.resignFirstResponder()
             }
         }
-
+        
     }
 }
 
-////MARK: - Сode layout
-//extension ToDoListViewController {
-//
-//    private func setupNavigationBar() {
-//        let coloredAppearance = UINavigationBarAppearance()
-//        coloredAppearance.configureWithOpaqueBackground()
-//        coloredAppearance.backgroundColor = .systemBlue
-//        coloredAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-//        coloredAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-//        navigationController?.navigationBar.standardAppearance = coloredAppearance
-//        navigationController?.navigationBar.scrollEdgeAppearance = coloredAppearance
-//
-//        navigationController?.navigationBar.tintColor = UIColor.white
-//    }
-//}

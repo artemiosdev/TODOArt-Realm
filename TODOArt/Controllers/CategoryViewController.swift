@@ -19,25 +19,22 @@ class CategoryViewController: SwipeTableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        guard let navBar = navigationController?.navigationBar else {
-            fatalError("Navigation controller does not exist.")
+        guard let navBar = navigationController?.navigationBar else { fatalError("Navigation controller does not exist.")
         }
-        navBar.backgroundColor = UIColor(hexString: "1D9BF6")
+        navBar.backgroundColor = UIColor(hexString: "#1D9BF6")
     }
     
     // MARK: - TableView Datasource Methods
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//      if we have no categories, then we simply return one cell
+        // if we have no categories, return one cell
         return categories?.count ?? 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
-//      if we didn't have any categories at all, then we simply fill that single cell
-//      with the words "No Categories Added yet," and we return the cell
+        // if we didn't have categories, fill that single cell
         cell.textLabel?.text  = categories?[indexPath.row].name ?? "No Categories Added Yet"
-// Chameleon Color
-//        cell.backgroundColor = UIColor(hexString: categories?[indexPath.row].colour ?? "1D9BF6")
+        // Chameleon Color
         if let category = categories?[indexPath.row] {
             guard let categoryColour = UIColor(hexString: category.colour) else {fatalError()}
             cell.backgroundColor = categoryColour
@@ -52,7 +49,7 @@ class CategoryViewController: SwipeTableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-       let destinationVC = segue.destination as! ToDoListViewController
+        let destinationVC = segue.destination as! ToDoListViewController
         if let indexPath = tableView.indexPathForSelectedRow {
             destinationVC.selectedCategory = categories?[indexPath.row]
         }
@@ -71,21 +68,21 @@ class CategoryViewController: SwipeTableViewController {
     }
     
     func loadCategories() {
-       categories = realm.objects(Category.self)
-       tableView.reloadData()
-   }
+        categories = realm.objects(Category.self)
+        tableView.reloadData()
+    }
     
     //MARK: - Delete Data From Swipe
     override func updateModel(at indexPath: IndexPath) {
-                if let categoryForDeleted = categories?[indexPath.row] {
-                    do {
-                        try realm.write({
-                            realm.delete(categoryForDeleted)
-                        })
-                    } catch {
-                        print("Error saving done status, \(error)")
-                    }
-                }
+        if let categoryForDeleted = categories?[indexPath.row] {
+            do {
+                try realm.write({
+                    realm.delete(categoryForDeleted)
+                })
+            } catch {
+                print("Error saving done status, \(error)")
+            }
+        }
     }
     
     //MARK: - Add New Categories
@@ -108,8 +105,9 @@ class CategoryViewController: SwipeTableViewController {
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
     }
-    
+
 }
+
 
 
 

@@ -10,15 +10,7 @@ import RealmSwift
 class Item: Object {
     @Persisted var title: String = ""
     @Persisted var done: Bool = false
-    
 //  sorted by Data created in func searchBarSearchButtonClicked()
-//  @Persisted var dateCreated: Date?
+    @Persisted var dateCreated: Date?
     @Persisted(originProperty: "items") var parentCategory: LinkingObjects<Category>
 }
-
-// old version code for Realm < 10.0.28 (3.0.6)
-//class Item: Object {
-//    @objc dynamic var title: String = ""
-//    @objc dynamic var done: Bool = false
-//    var parentCategory = LinkingObjects<Object>(fromType: Category.self, property: "items")
-//}
